@@ -3,8 +3,9 @@
 //  Ciphers & Unicode
 //
 //  Created by Artyom Rudakov on 5/9/18.
-//  Copyright © 2018 TwoDollarsEsq. All rights reserved.
+//  Copyright © 2020 TwoDollarsEsq. All rights reserved.
 //
+//  Тут знаходяться допоміжні утіліти. В більшій степені — це робота з файлами.
 
 #pragma once
 
