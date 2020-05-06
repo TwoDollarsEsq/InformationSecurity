@@ -8,7 +8,7 @@ import BigInt
 public typealias Key = (modulus: BigUInt, exponent: BigUInt)
 
 public func generateKeyPair(
-    of width: Int,
+    of width: Int = 1024,
     with exponent: BigUInt = 65537
 ) -> (public: Key, private: Key) {
     let p = generatePrime(width), q = generatePrime(width), n = p * q

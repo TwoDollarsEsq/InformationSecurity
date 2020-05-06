@@ -4,7 +4,7 @@ import BigInt
 
 final class RSATests: XCTestCase {
     func testExample() {
-        let (`public`, `private`) = generateKeyPair(of: 1024)
+        let (`public`, `private`) = generateKeyPair()
         print("Generated: \(`public`), \(`private`)")
         
         let message    = BigUInt(Data(
