@@ -5,7 +5,7 @@
 
 import BigInt
 
-public func generatePrime(_ width: Int) -> BigUInt {
+func generatePrime(_ width: Int) -> BigUInt {
     while true {
         var random = BigUInt.randomInteger(withExactWidth: width)
         random |= BigUInt(1)
