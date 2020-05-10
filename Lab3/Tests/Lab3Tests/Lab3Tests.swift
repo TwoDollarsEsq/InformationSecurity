@@ -32,7 +32,7 @@ final class Lab3Tests: XCTestCase {
     
     func testCoding() {
         // Given
-        let message = "Hello, World!"
+        let message = "Hello, World🤩"
         let data = Data(message.utf8)
         
         // When
@@ -45,7 +45,6 @@ final class Lab3Tests: XCTestCase {
         XCTAssert(encoded != decoded)
         XCTAssert(message != encMessage)
         XCTAssert(message.description == decMessage.description)
-        print(message, decMessage)
     }
 
     static var allTests = [

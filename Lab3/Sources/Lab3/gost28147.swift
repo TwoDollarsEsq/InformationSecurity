@@ -23,7 +23,7 @@ func gost28147(_ message: Data, with key: Data, encrypting: Bool) throws -> Data
         
         for i in 0..<numberOfCycles {
             let index = i < level ? (i % 8) : (7 - i % 8)
-            var s = (N1 + keys[index]) % UInt32.max
+            var s = (N1 &+ keys[index]) % UInt32.max
             s = substitute(s)
             s = (s << 11) | (s >> 21)
             s = s ^ N2
