@@ -9,25 +9,7 @@ enum GOSTError: Error {
     case invalidKey(message: String)
 }
 
-func gost28147(_ message: String, key: String, ecrypting: Bool) throws -> String {
-    guard key.count == 32 else {
-        throw GOSTError.invalidKey(
-            message: "Expected key length: 32, actual: \(key.count)"
-        )
-    }
-    
-    return ""
-}
-
-func encode(_ message: Data, key: Data) -> Data {
-    try! gost28147(message, key: key, encrypting: true)
-}
-
-func decode(_ message: Data, key: Data) -> Data {
-    try! gost28147(message, key: key, encrypting: false)
-}
-
-func gost28147(_ message: Data, key: Data, encrypting: Bool) throws -> Data {
+func gost28147(_ message: Data, with key: Data, encrypting: Bool) throws -> Data {
     guard key.count == 32 else {
         throw GOSTError.invalidKey(
             message: "Expected key length: 32, actual: \(key.count)"
@@ -57,12 +39,14 @@ func gost28147(_ message: Data, key: Data, encrypting: Bool) throws -> Data {
         return N1.data + N2.data
     }
     
+    let diff = message.count % 8
+    let message = message + Data(count: diff == 0 ? 0 : 8 - diff)
     let subKeys = transform(key)
     var result  = Data(count: message.count)
     var block   = Data(count: blockSize)
     
     for i in (0..<(message.count / blockSize)).map({ $0 * blockSize }) {
-        block = message[i..<(i + blockSize)]
+        block = Data(message[i..<(i + blockSize)])
         result[i..<(i + blockSize)] = process(block, keys: subKeys)
     }
     

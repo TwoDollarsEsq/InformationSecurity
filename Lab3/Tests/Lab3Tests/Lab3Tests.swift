@@ -4,10 +4,6 @@ import XCTest
 final class Lab3Tests: XCTestCase {
     let key = Data("this_is_a_pasw_for_GOST_28147_89".utf8)
     
-    func testExample() {
-        
-    }
-    
     func testKeyTransform() {
         // Given
         let subkeys: [UInt32] = [
@@ -34,28 +30,27 @@ final class Lab3Tests: XCTestCase {
         XCTAssert(result == substituted)
     }
     
-    func testUncoding() {
+    func testCoding() {
         // Given
         let message = "Hello, World!"
         let data = Data(message.utf8)
         
         // When
-        let encoded = encode(data, key: key)
-        let string = String(decoding: encoded, as: UTF8.self)
-        let decoded = decode(encoded, key: key)
+        let encoded = try! encode(data, with: key)
+        let decoded = try! decode(encoded, with: key)
+        let encMessage = String(decoding: encoded, as: UTF8.self)
         let decMessage = String(decoding: decoded, as: UTF8.self)
         
         // Then
-        data.forEach { print($0, terminator: ", ") }
-        print("")
-        decoded.forEach { print($0, terminator: ", ") }
-        print("")
-        print(encoded, string)
-        print(decoded, decMessage)
+        XCTAssert(encoded != decoded)
+        XCTAssert(message != encMessage)
+        XCTAssert(message.description == decMessage.description)
+        print(message, decMessage)
     }
 
     static var allTests = [
-        ("testExample", testExample),
         ("testKeyTransform", testKeyTransform),
+        ("testSubstitution", testSubstitution),
+        ("testCoding", testCoding)
     ]
 }

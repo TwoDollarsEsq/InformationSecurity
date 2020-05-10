@@ -3,10 +3,12 @@
 //  Created by Artyom Rudakov on 09.05.2020.
 //
 
-public func encrypt(_ message: String, key: String) -> String {
-    ""
+import struct Foundation.Data
+
+public func encode(_ message: Data, with key: Data) throws -> Data {
+    try gost28147(message, with: key, encrypting: true)
 }
 
-public func decrypt(_ message: String, key: String) -> String {
-    ""
+public func decode(_ message: Data, with key: Data) throws -> Data {
+    try gost28147(message, with: key, encrypting: false)
 }
