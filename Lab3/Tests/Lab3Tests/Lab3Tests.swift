@@ -2,13 +2,13 @@ import XCTest
 @testable import Lab3
 
 final class Lab3Tests: XCTestCase {
-    let key = Data("this_is_a_pasw_for_GOST_28147_89".utf8)
+    let key = Data("correct-horse-battery-staple_go!".utf8)
     
     func testKeyTransform() {
         // Given
         let subkeys: [UInt32] = [
-            1936287860, 1601399135, 1634754401, 1717532531,
-            1197437551, 1599361871, 875640882, 959995703
+            1920102243, 762602341, 1936879464, 1633824101,
+            1919251572, 1953705337, 1701605473, 560949087
         ]
         
         // When
@@ -21,7 +21,7 @@ final class Lab3Tests: XCTestCase {
     func testSubstitution() {
         // Given
         let subkeys = transform(key)
-        let substituted: [UInt32] = [116, 95, 97, 115, 111, 79, 50, 55]
+        let substituted: [UInt32] = [242, 248, 246, 248, 173, 171, 250, 211]
         
         // When
         let result = subkeys.map(substitute)
@@ -32,7 +32,7 @@ final class Lab3Tests: XCTestCase {
     
     func testCoding() {
         // Given
-        let message = "Hello, World🤩"
+        let message = "Hello, World!🤩"
         let data = Data(message.utf8)
         
         // When
@@ -44,7 +44,7 @@ final class Lab3Tests: XCTestCase {
         // Then
         XCTAssert(encoded != decoded)
         XCTAssert(message != encMessage)
-        XCTAssert(message.description == decMessage.description)
+        XCTAssert(decMessage.hasPrefix(message))
     }
 
     static var allTests = [

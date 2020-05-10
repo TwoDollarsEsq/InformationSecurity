@@ -3,7 +3,7 @@
 //  Created by Artyom Rudakov on 09.05.2020.
 //
 
-import Foundation
+import struct Foundation.Data
 
 extension Data {
     var uint32: UInt32 {
