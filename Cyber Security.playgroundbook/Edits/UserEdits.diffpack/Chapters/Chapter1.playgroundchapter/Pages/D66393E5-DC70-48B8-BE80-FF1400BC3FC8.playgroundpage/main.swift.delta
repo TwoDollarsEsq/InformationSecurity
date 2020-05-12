@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseFile</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/Template.playgroundpage/main.swift</string>
+	<key>Diffs</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>import SwiftUI
+
+struct ContentView: View {
+    @State private var coding: CodingState = .encoding
+    @State private var source: String = "Привет, Гост!🤩"
+    @State private var key: String = "correct-horse-battery-staple_go!"
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                modeSwitch
+                form
+            }
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+private extension ContentView {
+    enum CodingState: String, Hashable, CaseIterable {
+        case encoding = "Шифруем"
+        case decoding = "Дешифруем"
+        var isEncoding: Bool { self == .encoding }
+    }
+    
+    var modeSwitch: some View {
+        Picker("Режим работы", selection: $coding) {
+            ForEach(CodingState.allCases, id: \.self) { value in
+                Text(value.rawValue)
+                    .tag(value)
+            }
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .padding()
+    }
+    
+    var form: some View {
+        Form {
+            Section(header: Text(upperHeader)) {
+                TextField(upperHeader, text: $source)
+            }
+            
+            Section(header: Text(keyHeader)) {
+                TextField(keyHeader, text: $key)
+            }
+            
+            Section(header: Text(bottomHeader)) {
+                TextField(bottomHeader, text: .constant(
+                    coding.isEncoding 
+                        ? jsonBytes(from: try! encode(Data(source.utf8), with: keyAsData))
+                        : String(decoding: try! decode(data(from: source), with: keyAsData), as: UTF8.self))
+                )
+            }
+        }
+        .navigationBarTitle("Гост-28147-29")
+        .onReceive($coding.projectedValue) { 
+            print($0)
+        }
+    }
+    
+    var upperHeader: String {
+        coding.isEncoding ? "Исходный текст" : "Зашифрованные байты"
+    }
+    
+    var keyHeader: String { "Ключ" }
+    
+    var bottomHeader: String {
+        coding.isEncoding ? "Зашифрованные байты" : "Расшифрованный текст"
+    }
+    
+    var keyAsData: Data { Data(key.utf8) }
+    
+    func jsonBytes(from data: Data) -&gt; String {
+        String(describing: data.map { $0 })
+    }
+    
+    func data(from json: String) -&gt; Data {
+        Data(try! JSONDecoder().decode([UInt8].self, from: Data(json.utf8)))
+    }
+}
+
+ContentView().embedIntoPlayground()
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 2381}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>FormatVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
