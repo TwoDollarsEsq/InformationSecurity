@@ -5,6 +5,7 @@
 
 import BigInt
 import CryptoKit
+import struct Foundation.Data
 
 let hashBitCount = 160
 
@@ -17,8 +18,12 @@ public func sign(
     with parameters: DSAParameters,
     _ keys: Keys
 ) -> (r: BigUInt, s: BigUInt) {
-    let (q, p, g) = parameters.qpg, H = BigUInt(hashBitCount), x = keys.private
+    let (q, p, g) = parameters.qpg, x = keys.private
+    var hasher = Insecure.SHA1()
     var k: BigUInt = 0
+    
+    hasher.update(data: Data(message.utf8))
+    let H = hasher.finalize().bigInt
     
     func rGenerator() -> BigUInt {
         k = (1..<q).randomElement()!
