@@ -5,12 +5,14 @@
 
 import BigInt
 
+public typealias Signature = (r: BigUInt, s: BigUInt)
+
 public func sign(
     _ message: String,
     with parameters: DSAParameters,
-    _ keys: Keys
-) -> (r: BigUInt, s: BigUInt) {
-    let (q, p, g) = parameters.qpg, H = message.sha1Hash, x = keys.private
+    privateKey: Key
+) -> Signature {
+    let (q, p, g) = parameters.qpg, H = message.sha1Hash, x = privateKey
     var k: BigUInt = 0
     
     func rGenerator() -> BigUInt {

@@ -20,7 +20,8 @@ public struct DSAParameters {
     }
 }
 
-public typealias Keys = (`public`: BigUInt, `private`: BigUInt)
+public typealias Key = BigUInt
+public typealias Keys = (`public`: Key, `private`: Key)
 
 public func keyPair(with parameters: DSAParameters = .init(with: 1024)) -> Keys {
     let (q, p, g) = parameters.qpg
