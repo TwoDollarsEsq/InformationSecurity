@@ -24,7 +24,7 @@ public extension DSA {
     typealias Key = BigUInt
     typealias Keys = (`public`: Key, `private`: Key)
     
-    func keyPair(with parameters: Parameters = .init(with: 1024)) -> Keys {
+    static func keyPair(with parameters: Parameters = .init(with: 1024)) -> Keys {
         let (q, p, g) = parameters.qpg
         
         let 𝒙 = (1...q).randomElement()! // Private key

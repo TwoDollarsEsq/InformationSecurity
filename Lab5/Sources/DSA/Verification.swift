@@ -5,8 +5,8 @@
 
 import BigInt
 
-extension DSA {
-    public func verify(
+public extension DSA {
+    static func verify(
         _ message: String,
         using parameters: Parameters,
         publicKey: Key,

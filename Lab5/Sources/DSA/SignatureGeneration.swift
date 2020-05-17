@@ -8,7 +8,7 @@ import BigInt
 public extension DSA {
     typealias Signature = (r: BigUInt, s: BigUInt)
     
-    func sign(
+    static func sign(
         _ message: String,
         with privateKey: Key,
         using parameters: Parameters
