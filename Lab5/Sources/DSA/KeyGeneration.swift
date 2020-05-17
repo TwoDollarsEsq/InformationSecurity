@@ -20,9 +20,9 @@ public struct DSAParameters {
     }
 }
 
-public func keyPair(
-    with parameters: DSAParameters = .init(with: 1024)
-) -> (`public`: BigUInt, `private`: BigUInt) {
+public typealias Keys = (`public`: BigUInt, `private`: BigUInt)
+
+public func keyPair(with parameters: DSAParameters = .init(with: 1024)) -> Keys {
     let (q, p, g) = parameters.qpg
     
     let 𝒙 = (1...q).randomElement()! // Private key
@@ -33,13 +33,10 @@ public func keyPair(
 
 fileprivate extension DSAParameters {
     static func generatePrime(with width: Int) -> BigUInt {
-        while true {
-            var random = BigUInt.randomInteger(withExactWidth: width)
-            random |= BigUInt(1)
-            if random.isPrime() {
-                return random
-            }
-        }
+        generate(
+            with: { BigUInt.randomInteger(withExactWidth: width) | BigUInt(1)},
+            predicate: { $0.isPrime() }
+        )
     }
 
     static func q(with width: Int) -> BigUInt {
@@ -47,12 +44,10 @@ fileprivate extension DSAParameters {
     }
 
     static func p(from q: BigUInt, with width: Int) -> BigUInt {
-        while true {
-            let potentialPrime = generatePrime(with: width)
-            if (potentialPrime - 1).isMultiple(of: q) {
-                return potentialPrime
-            }
-        }
+        generate(
+            with: { generatePrime(with: width) },
+            predicate: { ($0 - 1).isMultiple(of: q) }
+        )
     }
 
     static func g(from p: BigUInt, _ q: BigUInt) -> BigUInt {
