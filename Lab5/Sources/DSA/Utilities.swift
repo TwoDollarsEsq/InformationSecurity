@@ -3,6 +3,8 @@
 //  Created by Artyom Rudakov on 17.05.2020.
 //
 
+public enum DSA {}
+
 func generate<A>(with generator: () -> A, predicate: (A) -> Bool) -> A {
     while true {
         let newValue = generator()

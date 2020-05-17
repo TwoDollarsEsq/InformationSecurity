@@ -5,34 +5,36 @@
 
 import BigInt
 
-public struct DSAParameters {
-    let q, p, g: BigUInt
-    
-    public init(with width: Int) {
-        let 𝑳 = width, 𝑵 = min(𝑳, hashBitCount) - 1
-        q = Self.q(with: 𝑵)
-        p = Self.p(from: q, with: 𝑳)
-        g = Self.g(from: p, q)
+public extension DSA {
+    struct Parameters {
+        let q, p, g: BigUInt
+        
+        public init(with width: Int) {
+            let 𝑳 = width, 𝑵 = min(𝑳, hashBitCount) - 1
+            q = Self.q(with: 𝑵)
+            p = Self.p(from: q, with: 𝑳)
+            g = Self.g(from: p, q)
+        }
+        
+        var qpg: (BigUInt, BigUInt, BigUInt) {
+            (q, p, g)
+        }
     }
     
-    var qpg: (BigUInt, BigUInt, BigUInt) {
-        (q, p, g)
+    typealias Key = BigUInt
+    typealias Keys = (`public`: Key, `private`: Key)
+    
+    func keyPair(with parameters: Parameters = .init(with: 1024)) -> Keys {
+        let (q, p, g) = parameters.qpg
+        
+        let 𝒙 = (1...q).randomElement()! // Private key
+        let 𝐲 = g.power(𝒙, modulus: p)   // Public key
+        
+        return (𝒙, 𝐲)
     }
 }
 
-public typealias Key = BigUInt
-public typealias Keys = (`public`: Key, `private`: Key)
-
-public func keyPair(with parameters: DSAParameters = .init(with: 1024)) -> Keys {
-    let (q, p, g) = parameters.qpg
-    
-    let 𝒙 = (1...q).randomElement()! // Private key
-    let 𝐲 = g.power(𝒙, modulus: p)   // Public key
-    
-    return (𝒙, 𝐲)
-}
-
-fileprivate extension DSAParameters {
+fileprivate extension DSA.Parameters {
     static func generatePrime(with width: Int) -> BigUInt {
         generate(
             with: { BigUInt.randomInteger(withExactWidth: width) | BigUInt(1)},
@@ -52,7 +54,6 @@ fileprivate extension DSAParameters {
     }
 
     static func g(from p: BigUInt, _ q: BigUInt) -> BigUInt {
-        // FIXME: What if p < 2? In such rare cases — a crash.
         let gValue = (2...p - 2).randomElement()!.power((p - 1) / q, modulus: q)
         return gValue == 1 ? g(from: p, q) : gValue
     }
