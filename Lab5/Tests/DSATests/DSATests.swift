@@ -1,14 +1,36 @@
 import XCTest
-@testable import DSA
+import DSA
 
 final class DSATests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
+    let precomputedParameters = DSA.Parameters(
+        q: "1461461359677056032138425664688969714401096527653",
+        p: "113003610536769662365475438074349202902393371149098932488829763899759693942182221311951893491037065838678290591836787867236266829425427477322203921585701270997375076009060429934105831431797790713235693561718253840225010037389994367689434248899226231330475152082648849936270434981210830874017521600353881618277",
+        g: "96504423597250666602463350548382591669983630413397284533161601799828504875913402437338367980529992940898864793759282567968196860849581229764805627921115713088555922323634319263032762806965222542087676328725218634401760700374749451348066585982534624077588633442696948741889609514070233035695255374063221721717"
+    )
+    
+    lazy var keys = DSA.keyPair(with: precomputedParameters)
+    
+    func testDSA() {
+        // Given
+        let message = "Hello, DSA!😎"
+        
+        // When
+        let signature = DSA.sign(
+            message,
+            with: keys.private,
+            using: precomputedParameters
+        )
+        
+        // Then
+        XCTAssert(DSA.verify(
+            message,
+            using: precomputedParameters,
+            publicKey: keys.public,
+            signature: signature
+        ))
     }
 
     static var allTests = [
-        ("testExample", testExample),
+        ("testDSA", testDSA),
     ]
 }

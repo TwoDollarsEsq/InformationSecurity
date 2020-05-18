@@ -14,21 +14,6 @@ func generate<A>(with generator: () -> A, predicate: (A) -> Bool) -> A {
     }
 }
 
-func twoGenerate<A, B>(
-    with aGenerator: () -> A,
-    _ bGenerator: (A) -> B,
-    precondition: (A) -> Bool,
-    predicate: (B) -> Bool
-) -> (A, B) {
-    while true {
-        let a = aGenerator()
-        guard precondition(a) else { continue }
-        
-        let b = bGenerator(a)
-        if predicate(b) { return (a, b) }
-    }
-}
-
 import CryptoKit
 import struct BigInt.BigUInt
 import struct Foundation.Data
@@ -44,5 +29,24 @@ extension String {
         var hasher = Insecure.SHA1()
         hasher.update(data: Data(self.utf8))
         return hasher.finalize().bigInt
+    }
+}
+
+extension BigUInt {
+    static private let modulus: BigUInt =
+        """
+        113003610536769662365475438074349202902393371149098932488829763899759693\
+        942182221311951893491037065838678290591836787867236266829425427477322203\
+        921585701270997375076009060429934105831431797790713235693561718253840225\
+        010037389994367689434248899226231330475152082648849936270434981210830874\
+        017521600353881618277113003610536769662365475438074349202902393371149098\
+        932488829763899759693942182221311951893491037065838678290591836787867236\
+        266829425427477322203921585701270997375076009060429934105831431797790713\
+        235693561718253840225010037389994367689434248899226231330475152082648849\
+        936270434981210830874017521600353881618277
+        """
+    
+    func power(_ exponent: BigUInt) -> BigUInt {
+        self.power(exponent, modulus: Self.modulus)
     }
 }

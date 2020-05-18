@@ -14,11 +14,13 @@ public extension DSA {
     ) -> Bool {
         let (q, p, g) = parameters.qpg, (r, s) = signature
         let H = message.sha1Hash, y = publicKey
+        guard r < q && s < q else { return false }
         
         let w = s.inverse(q)!
-        let u1 = (H * w) % q, u2 = (r * w) % q
-        let v1 = g.power(u1, modulus: p), v2 = y.power(u2, modulus: p)
-        let v = v1 * v2
+        let u1 = H * w % q, u2 = r * w % q
+        
+        let v1 = g.power(u1), v2 = y.power(u2)
+        let v = v1 * v2 % p % q
         
         return v == r
     }
