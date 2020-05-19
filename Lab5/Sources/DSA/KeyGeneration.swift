@@ -6,8 +6,8 @@
 import BigInt
 
 public extension DSA {
-    struct Parameters {
-        let q, p, g: BigUInt
+    struct Parameters: Codable {
+        public let q, p, g: BigUInt
         
         public init(q: BigUInt, p: BigUInt, g: BigUInt) {
             self.q = q
@@ -21,7 +21,14 @@ public extension DSA {
     }
     
     typealias Key = BigUInt
-    typealias Keys = (`private`: Key, `public`: Key)
+    struct Keys: Codable {
+        public let `private`, `public`: Key
+        
+        public init(_ `private`: Key, _ `public`: Key) {
+            self.private = `private`
+            self.public  = `public`
+        }
+    }
     
     static func keyPair(with parameters: Parameters) -> Keys {
         let (q, p, g) = parameters.qpg
@@ -29,7 +36,7 @@ public extension DSA {
         let 𝒙 = BigUInt.randomInteger(lessThan: q) // Private key
         let 𝐲 = g.power(𝒙, modulus: p)             // Public key
         
-        return (𝒙, 𝐲)
+        return .init(𝒙, 𝐲)
     }
 }
 
