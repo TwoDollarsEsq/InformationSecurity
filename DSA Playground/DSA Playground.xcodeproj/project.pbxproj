@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		175231CA247421A100DDFE05 /* DSA in Frameworks */ = {isa = PBXBuildFile; productRef = 175231C9247421A100DDFE05 /* DSA */; };
+		175D590824742C650036CA3B /* DroppableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175D590724742C650036CA3B /* DroppableArea.swift */; };
+		175D590A247432BC0036CA3B /* MultilineTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175D5909247432BC0036CA3B /* MultilineTextView.swift */; };
 		1772F08F2473C70500BCB7D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1772F08E2473C70500BCB7D1 /* AppDelegate.swift */; };
 		1772F0912473C70500BCB7D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1772F0902473C70500BCB7D1 /* SceneDelegate.swift */; };
 		1772F0932473C70500BCB7D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1772F0922473C70500BCB7D1 /* ContentView.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		175231C82474219D00DDFE05 /* Lab5 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lab5; path = ../Lab5; sourceTree = "<group>"; };
+		175D590724742C650036CA3B /* DroppableArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppableArea.swift; sourceTree = "<group>"; };
+		175D5909247432BC0036CA3B /* MultilineTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextView.swift; sourceTree = "<group>"; };
 		1772F08B2473C70500BCB7D1 /* DSA Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DSA Playground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1772F08E2473C70500BCB7D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1772F0902473C70500BCB7D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,7 +30,6 @@
 		1772F0972473C70600BCB7D1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1772F09A2473C70600BCB7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1772F09C2473C70600BCB7D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1772F0A32473C73A00BCB7D1 /* Lab5 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lab5; path = ../Lab5; sourceTree = "<group>"; };
 		1772F0A42473C9B000BCB7D1 /* DSA Playground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DSA Playground.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -33,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				175231CA247421A100DDFE05 /* DSA in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +68,9 @@
 				1772F0A42473C9B000BCB7D1 /* DSA Playground.entitlements */,
 				1772F08E2473C70500BCB7D1 /* AppDelegate.swift */,
 				1772F0902473C70500BCB7D1 /* SceneDelegate.swift */,
+				175D590724742C650036CA3B /* DroppableArea.swift */,
 				1772F0922473C70500BCB7D1 /* ContentView.swift */,
+				175D5909247432BC0036CA3B /* MultilineTextView.swift */,
 				1772F0942473C70600BCB7D1 /* Assets.xcassets */,
 				1772F0992473C70600BCB7D1 /* LaunchScreen.storyboard */,
 				1772F09C2473C70600BCB7D1 /* Info.plist */,
@@ -82,7 +90,7 @@
 		1772F0A22473C73A00BCB7D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1772F0A32473C73A00BCB7D1 /* Lab5 */,
+				175231C82474219D00DDFE05 /* Lab5 */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,6 +111,9 @@
 			dependencies = (
 			);
 			name = "DSA Playground";
+			packageProductDependencies = (
+				175231C9247421A100DDFE05 /* DSA */,
+			);
 			productName = "DSA Playground";
 			productReference = 1772F08B2473C70500BCB7D1 /* DSA Playground.app */;
 			productType = "com.apple.product-type.application";
@@ -158,6 +169,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				175D590A247432BC0036CA3B /* MultilineTextView.swift in Sources */,
+				175D590824742C650036CA3B /* DroppableArea.swift in Sources */,
 				1772F08F2473C70500BCB7D1 /* AppDelegate.swift in Sources */,
 				1772F0912473C70500BCB7D1 /* SceneDelegate.swift in Sources */,
 				1772F0932473C70500BCB7D1 /* ContentView.swift in Sources */,
@@ -358,6 +371,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		175231C9247421A100DDFE05 /* DSA */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSA;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1772F0832473C70500BCB7D1 /* Project object */;
 }
