@@ -12,7 +12,7 @@ public extension DSA {
         publicKey: Key,
         signature: Signature
     ) -> Bool {
-        let (q, p, g) = parameters.qpg, (r, s) = signature
+        let (q, p, g) = parameters.qpg, (r, s) = signature.destructured
         let H = message.sha1Hash, y = publicKey
         guard r < q && s < q else { return false }
         

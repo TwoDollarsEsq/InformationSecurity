@@ -6,7 +6,18 @@
 import BigInt
 
 public extension DSA {
-    typealias Signature = (r: BigUInt, s: BigUInt)
+    struct Signature: Codable {
+        public let r, s: BigUInt
+        
+        public init(_ r: BigUInt, _ s: BigUInt) {
+            self.r = r
+            self.s = s
+        }
+        
+        var destructured: (r: BigUInt, s: BigUInt) {
+            (r, s)
+        }
+    }
     
     static func sign(
         _ message: String,
@@ -25,7 +36,7 @@ public extension DSA {
             let s = k.inverse(q)! * (H + x * r) % q
             guard s > 0 else { continue }
             
-            return (r, s)
+            return .init(r, s)
         }
     }
 }
